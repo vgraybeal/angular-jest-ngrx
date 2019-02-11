@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Hero } from './hero';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -24,7 +24,7 @@ export class HeroService {
   getHeroes(): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
-        tap(_ => this.log('fetched heroes')),
+        tap(_ => this.log(`fetched ${_.length} heroes`)),
         catchError(this.handleError('getHeroes', []))
       );
   }

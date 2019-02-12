@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MessagesComponent } from './messages.component';
+import { Store } from '@ngrx/store';
 
 describe('MessagesComponent', () => {
   let component: MessagesComponent;
@@ -8,7 +9,15 @@ describe('MessagesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessagesComponent ]
+      declarations: [ MessagesComponent ],
+      providers: [
+        {
+          provide: Store,
+          useValue: { 
+            pipe: jest.fn(),
+          },
+        }
+      ]
     })
     .compileComponents();
   }));

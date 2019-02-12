@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from '../message.service';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';

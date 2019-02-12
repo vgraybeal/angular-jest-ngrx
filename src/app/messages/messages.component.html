@@ -5,4 +5,4 @@
   <div *ngFor="let message of messageService.messages">{{message}}</div>
 </div>
 
-<div>Number of heroes: {{ (heroes$ | async).heroes.length }}</div>
+<div>Number of heroes: {{ (heroes$ | async) ? (heroes$ | async).heroes.length : 0 }}</div>

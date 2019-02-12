@@ -8,13 +8,11 @@ import { HeroesComponent } from './heroes.component';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { LoadHeroes } from '../store/hero.actions';
-import { Hero } from '../hero';
 
 describe('HeroesComponent', () => {
   let component: HeroesComponent;
   let fixture: ComponentFixture<HeroesComponent>;
   let unsubscribe = new Subject<void>();
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -74,7 +72,7 @@ describe('HeroesComponent', () => {
     });
   });
 
-  describe('users', () => {
+  describe('heroes$', () => {
     it('should be an observable of an array of Hero objects', done => {
       const heroes: HeroState = {heroes:[{name: 'person', id: 1}]};
       const store = TestBed.get(Store);

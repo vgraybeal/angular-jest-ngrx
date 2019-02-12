@@ -15,15 +15,15 @@ export class HeroesComponent implements OnInit {
   heroes$: Observable<HeroState>
 
   constructor(private store: Store<{ heroes: HeroState, count: number }>) {
-    this.heroes$ = store.pipe(select('heroes'));
   }
-
+  
   ngOnInit() {
     this.getHeroes();
   }
-
+  
   getHeroes(): void {
     this.store.dispatch(new LoadHeroes());
+    this.heroes$ = this.store.pipe(select('heroes'));
   }
 
   add(name: string): void {

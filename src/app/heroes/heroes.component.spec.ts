@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {cold, hot} from 'jest-marbles';
+import {cold, hot, getTestScheduler} from 'jasmine-marbles';
+import { State as HeroState } from '../store/hero.reducer';
 
 import { HeroesComponent } from './heroes.component';
 import { Store } from '@ngrx/store';
@@ -73,23 +74,20 @@ describe('HeroesComponent', () => {
     });
   });
 
-  // describe('users', () => {
-  //   it('should be an observable of an array of Hero objects', done => {
-  //     const heroes: Hero[] = [{name: 'person', id: 1}];
-  //     const store = TestBed.get(Store);
-  //     console.log('store.pipe', store.pipe);
-  //     store.pipe = jest.fn(() => cold('-a|', { a: {heroes:heroes} }));
-  //     console.log('store.pipe', store.pipe);
+  describe('users', () => {
+    it('should be an observable of an array of Hero objects', done => {
+      const heroes: HeroState = {heroes:[{name: 'person', id: 1}]};
+      const store = TestBed.get(Store);
+      store.pipe = jest.fn(() => cold('-a|', { a: heroes }));
   
-  //     fixture.detectChanges();
-  //     console.log('component', component.heroes$)
-  //     component.heroes$.subscribe(componentUsers => {
-  //       expect(componentUsers).toEqual(heroes);
-  //       done();
-  //     });
+      fixture.detectChanges();
+      component.heroes$.subscribe(componentHeroes => {
+        expect(componentHeroes).toEqual(heroes);
+        done();
+      });
   
-  //     getTestScheduler().flush();
-  //   });
-  // });
+      getTestScheduler().flush();
+    });
+  });
 
 });

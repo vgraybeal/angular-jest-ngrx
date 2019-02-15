@@ -4,9 +4,7 @@
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "types": [
-      "jasmine",
-      "jest",
-      "node"
+      "jest"
     ]
   },
   "files": [

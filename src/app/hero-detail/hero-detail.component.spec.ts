@@ -7,7 +7,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Location } from '@angular/common';
 
 export class MockActivatedRoute {
-  constructor(public params: MockParams) {}
+  constructor(public params) {}
 }
 
 describe('HeroDetailComponent', () => {

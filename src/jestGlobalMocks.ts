@@ -1,5 +1,5 @@
 // ng s is complaining about global, so doing this "hackishly"
-declare var global;
+declare var global: NodeJS.Global;
 global['CSS'] = null;
 
 const mock = () => {

@@ -16,5 +16,13 @@
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"
-  ]
+  ],
+  // "jest": {
+  //   "globals": {
+  //     "ts-jest": {
+  //       "ignoreCoverageForDecorators": true,
+  //       // "ignoreCoverageForAllDecorators": true
+  //     }
+  //   }
+  // }
 }

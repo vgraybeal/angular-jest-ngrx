@@ -16,10 +16,7 @@ export class HeroService {
 
   private heroesUrl = 'api/heroes';
 
-  constructor(
-    private messageService: MessageService,
-    private http: HttpClient,
-  ) { }
+  constructor(private messageService: MessageService, private http: HttpClient) { }
 
   getHeroes(): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl)
@@ -35,6 +32,7 @@ export class HeroService {
  * @param operation - name of the operation that failed
  * @param result - optional value to return as the observable result
  */
+  /* istanbul ignore next */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
@@ -88,6 +86,7 @@ export class HeroService {
   /* GET heroes whose name contains search term */
   searchHeroes(term: string): Observable<Hero[]> {
     if (!term.trim()) {
+      console.log('not term')
       // if not search term, return empty hero array.
       return of([]);
     }
@@ -101,3 +100,4 @@ export class HeroService {
     this.messageService.add(`HeroService: ${message}`)
   }
 }
+

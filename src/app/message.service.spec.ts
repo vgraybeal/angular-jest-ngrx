@@ -9,4 +9,21 @@ describe('MessageService', () => {
     const service: MessageService = TestBed.get(MessageService);
     expect(service).toBeTruthy();
   });
+
+  describe('add', () => {
+    it('should push message onto list', () => {
+      const service = TestBed.get(MessageService);
+      service.add('new message');
+      expect(service.messages).toEqual(['new message']);
+    });
+  });
+
+  describe('clear', () => {
+    it('should reset message list', () => {
+      const service = TestBed.get(MessageService);
+      service.add('new message');
+      service.clear();
+      expect(service.messages).toEqual([]);
+    });
+  });
 });

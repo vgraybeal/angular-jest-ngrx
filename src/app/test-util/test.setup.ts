@@ -1,7 +1,8 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { imports, providers } from '../app.module';
+import { baseImports } from '../app.imports';
+import { providers } from '../app.providers';
 import { CreateOptions, TestContext } from './test.context';
 
 export function setup<T, H>(options: CreateOptions<T, H>): void {
@@ -12,7 +13,7 @@ export function setup<T, H>(options: CreateOptions<T, H>): void {
         declarations: [options.testedType, options.hostType, ...options.declarations],
         providers: [...providers, options.providers],
         imports: [
-          ...imports,
+          ...baseImports,
           ...options.imports,
           RouterTestingModule.withRoutes(options.routes),
         ]

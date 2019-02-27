@@ -30,10 +30,3 @@ export const imports = [
   HttpClientModule,
   ...baseImports
 ]
-
-// For unit testing
-export const testImports = [
-  RouterTestingModule,
-  HttpClientTestingModule,
-  ...baseImports
-]

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Observable, Subject } from 'rxjs';
-
 import {
-   debounceTime, distinctUntilChanged, switchMap
+   debounceTime, distinctUntilChanged, switchMap, tap
  } from 'rxjs/operators';
 
 import { Hero } from '../hero';
@@ -21,6 +19,9 @@ export class HeroSearchComponent implements OnInit {
   constructor(private heroService: HeroService) {}
 
   // Push a search term into the observable stream.
+  // Ignore because all it's doing is
+  // changing a private variable
+  /* istanbul ignore next */
   search(term: string): void {
     this.searchTerms.next(term);
   }

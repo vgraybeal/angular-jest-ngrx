@@ -26,7 +26,7 @@ export class HeroService {
       );
   }
 
-  /**
+/**
  * Handle Http operation that failed.
  * Let the app continue.
  * @param operation - name of the operation that failed
@@ -86,7 +86,7 @@ export class HeroService {
   /* GET heroes whose name contains search term */
   searchHeroes(term: string): Observable<Hero[]> {
     if (!term.trim()) {
-      console.log('not term')
+      console.log('not term');
       // if not search term, return empty hero array.
       return of([]);
     }
@@ -97,7 +97,7 @@ export class HeroService {
   }
 
   private log(message: string) {
-    this.messageService.add(`HeroService: ${message}`)
+    this.messageService.add(`HeroService: ${message}`);
   }
 }
 

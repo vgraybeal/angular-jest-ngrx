@@ -2,10 +2,8 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "module": "commonjs",
     "types": [
       "jasmine",
-      "jest",
       "node"
     ]
   },
@@ -16,13 +14,5 @@
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"
-  ],
-  // "jest": {
-  //   "globals": {
-  //     "ts-jest": {
-  //       "ignoreCoverageForDecorators": true,
-  //       // "ignoreCoverageForAllDecorators": true
-  //     }
-  //   }
-  // }
+  ]
 }

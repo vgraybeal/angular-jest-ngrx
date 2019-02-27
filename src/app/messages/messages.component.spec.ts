@@ -13,8 +13,8 @@ describe('MessagesComponent', () => {
       providers: [
         {
           provide: Store,
-          useValue: { 
-            pipe: jest.fn(),
+          useValue: {
+            pipe: jasmine.createSpy(),
           },
         }
       ]

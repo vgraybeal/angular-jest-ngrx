@@ -8,7 +8,7 @@ describe('HeroService', () => {
   let injector: TestBed;
   let service: HeroService;
   let httpMock: HttpTestingController;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -29,11 +29,11 @@ describe('HeroService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe("getHeroes", () => {
+  describe('getHeroes', () => {
     it('return an Observable<Hero[]>', done => {
       const dummyHeros = [
-        {name: 'John'},
-        {name: 'Doe'}
+        {id: 0, name: 'John'},
+        {id: 1, name: 'Doe'}
       ];
 
       service.getHeroes()
@@ -41,10 +41,10 @@ describe('HeroService', () => {
           expect(heroes.length).toBe(2);
           expect(heroes).toEqual(dummyHeros);
           done();
-        })
+        });
 
       const req = httpMock.expectOne(`api/heroes`);
-      expect(req.request.method).toBe("GET");
+      expect(req.request.method).toBe('GET');
       req.flush(dummyHeros);
     });
 
@@ -57,34 +57,34 @@ describe('HeroService', () => {
           });
 
         const req = httpMock.expectOne(`api/heroes`);
-        req.flush({}, { 
-          status: 400, 
-          statusText: 'Bad Request' 
+        req.flush({}, {
+          status: 400,
+          statusText: 'Bad Request'
         });
-      })
-    })
+      });
+    });
   });
 
-  describe("getHero", () => {
+  describe('getHero', () => {
     it('return an Observable<Hero>', done => {
-      const dummyHero = {name: 'John'};
+      const dummyHero = {id: 0, name: 'John'};
 
       service.getHero(1)
         .subscribe(hero => {
           expect(hero).toEqual(dummyHero);
           done();
-        })
+        });
 
       // Mock Request
       const req = httpMock.expectOne(`api/heroes/1`);
-      expect(req.request.method).toBe("GET");
+      expect(req.request.method).toBe('GET');
       req.flush(dummyHero);
     });
 
   });
 
 
-  describe("updateHero", () => {
+  describe('updateHero', () => {
     it('return an Observable<Hero>', done => {
       const dummyHero = {name: 'William'} as Hero;
 
@@ -92,17 +92,17 @@ describe('HeroService', () => {
         .subscribe(hero => {
           expect(hero).toEqual(dummyHero);
           done();
-        })
+        });
 
       // Mock Request
       const req = httpMock.expectOne(`api/heroes`);
-      expect(req.request.method).toBe("PUT");
+      expect(req.request.method).toBe('PUT');
       req.flush(dummyHero);
     });
   });
 
 
-  describe("addHero", () => {
+  describe('addHero', () => {
     it('return an Observable<Hero>', done => {
       const dummyHero = {name: 'William'} as Hero;
       // Look at response
@@ -110,15 +110,15 @@ describe('HeroService', () => {
         .subscribe(hero => {
           expect(hero).toEqual(dummyHero);
           done();
-        })
+        });
       // Mock Request
       const req = httpMock.expectOne(`api/heroes`);
-      expect(req.request.method).toBe("POST");
+      expect(req.request.method).toBe('POST');
       req.flush(dummyHero);
     });
   });
 
-  describe("deleteHero", () => {
+  describe('deleteHero', () => {
     it('return an Observable<Hero>', done => {
       const dummyHero = {name: 'William', id: 1} as Hero;
       // Look at response
@@ -126,15 +126,15 @@ describe('HeroService', () => {
         .subscribe(hero => {
           expect(hero).toEqual(dummyHero);
           done();
-        })
+        });
       // Mock Request
       const req = httpMock.expectOne(`api/heroes/1`);
-      expect(req.request.method).toBe("DELETE");
+      expect(req.request.method).toBe('DELETE');
       req.flush(dummyHero);
     });
   });
 
-  describe("searchHeroes", () => {
+  describe('searchHeroes', () => {
     // let req;
     beforeEach(() => {
       // Mock Request
@@ -142,8 +142,8 @@ describe('HeroService', () => {
 
     it('return an Observable<Hero[]>', done => {
       const dummyHeroes = [
-        {name: 'William'},
-        {name: 'Wilhelmina'}
+        {id: 0, name: 'William'},
+        {id: 1, name: 'Wilhelmina'}
       ];
 
       // Look at response
@@ -151,10 +151,10 @@ describe('HeroService', () => {
         .subscribe(heroes => {
           expect(heroes).toEqual(dummyHeroes);
           done();
-        })
-        
+        });
+
       const req = httpMock.expectOne(`api/heroes/?name=Wil`);
-      expect(req.request.method).toBe("GET");
+      expect(req.request.method).toBe('GET');
       req.flush(dummyHeroes);
     });
 
@@ -164,7 +164,7 @@ describe('HeroService', () => {
         .subscribe(heroes => {
           expect(heroes).toEqual([]);
           done();
-        })
+        });
     });
   });
 

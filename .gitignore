@@ -5,6 +5,9 @@
 /tmp
 /out-tsc
 
+# unit test reports
+/reports
+
 # dependencies
 /node_modules
 

@@ -9,7 +9,7 @@ interface Options {
 export class MockHeroesService {
   getHeroesOptions: Options = {isSuccess: true};
 
-  constructor(options?: {getHeroesOptions?: Options}) {
+  constructor(options: {getHeroesOptions?: Options} = {}) {
     this.getHeroesOptions = options.getHeroesOptions || this.getHeroesOptions;
   }
   getHeroes(): Observable<Hero[]> {

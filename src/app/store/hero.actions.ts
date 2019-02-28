@@ -17,12 +17,12 @@ export class LoadHeroes implements Action {
 
 export class LoadHeroesSuccess implements Action {
   readonly type = ActionTypes.LoadHeroesSuccess;
-  constructor(public payload?:Hero[]) {}
+  constructor(public payload: Hero[]) {}
 }
  
 export class DeleteHero implements Action {
   readonly type = ActionTypes.DeleteHero;
-  constructor(public payload?:Hero) {}
+  constructor(public payload: Hero | number) {}
 }
  
 export class NoAction implements Action {
@@ -32,12 +32,12 @@ export class NoAction implements Action {
 
 export class AddHero implements Action {
   readonly type = ActionTypes.AddHero;
-  constructor(public payload?:Hero) {}
+  constructor(public payload: Hero) {}
 }
 
 export class AddHeroSuccess implements Action {
   readonly type = ActionTypes.AddHeroSuccess;
-  constructor(public payload?:Hero) {}
+  constructor(public payload: Hero) {}
 }
 
 export type ActionsUnion = 

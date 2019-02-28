@@ -1,38 +1,51 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { async, TestBed } from '@angular/core/testing';
+import { HeroService } from '../hero.service';
+import { MockHeroesService } from '../test/mock-services/mock-heroes-service';
+import { TestContext } from '../test/util/test.context';
+import { setup } from '../test/util/test.setup';
 import { DashboardComponent } from './dashboard.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+type Context = TestContext<DashboardComponent, DashBoardTestComponent>;
+
+@Component({
+  template: `<app-dashboard></app-dashboard>`
+})
+class DashBoardTestComponent {}
 
 @Component({selector: 'app-hero-search', template: ''})
 class HeroSearchStubComponent {}
 
 describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        DashboardComponent,
-        HeroSearchStubComponent
-      ],
-      imports: [
-        RouterTestingModule,
-        HttpClientTestingModule
-      ],
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  setup({
+    testedType: DashboardComponent,
+    hostType: DashBoardTestComponent,
+    declarations: [HeroSearchStubComponent],
+    imports: [],
+    routes: [],
+    providers: [{provide: HeroService, useValue: new MockHeroesService({getHeroesOptions: {isSuccess: true}})}],
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  beforeEach(async(function(this: Context) {
+    this.createModule();
+  }));
+
+  describe('getHeroes success', () => {
+    beforeEach(function(this: Context) {
+      this.createComponent();
+    });
+    it('should get heroes on init', function(this: Context) {
+      expect(this.testedDirective.heroes.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('getHeroes fail', () => {
+    beforeEach(function(this: Context) {
+      TestBed.overrideProvider(HeroService, {useValue: new MockHeroesService({getHeroesOptions: {isSuccess: false}})});
+      this.createComponent();
+    });
+    it('should handle getHeroes failure', function(this: Context) {
+      expect(this.testedDirective.heroes.length).toBe(0);
+    });
   });
 });

@@ -1,5 +1,5 @@
 import { Observable, of, throwError } from 'rxjs';
-import { Hero } from '../hero';
+import { Hero } from '../../hero';
 import { mockHeroes } from '../mock-data/mock.heroes';
 
 interface Options {

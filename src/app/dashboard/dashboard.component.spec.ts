@@ -1,8 +1,8 @@
 import { async, TestBed } from '@angular/core/testing';
 import { HeroService } from '../hero.service';
-import { MockHeroesService } from '../mock-services/mock-heroes-service';
-import { TestContext } from '../test-util/test.context';
-import { setup } from '../test-util/test.setup';
+import { MockHeroesService } from '../test/mock-services/mock-heroes-service';
+import { TestContext } from '../test/util/test.context';
+import { setup } from '../test/util/test.setup';
 import { DashboardComponent } from './dashboard.component';
 import { Component } from '@angular/core';
 

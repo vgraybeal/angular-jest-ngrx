@@ -8,25 +8,22 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { EffectsModule } from '@ngrx/effects';
 import { HeroEffects } from './store/hero.effects';
-
-// For unit testing
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { initialState } from './store/state';
 
 export const baseImports = [
   BrowserModule,
   FormsModule,
+]
+
+export const imports = [
+  ...baseImports,
+  AppRoutingModule,
+  HttpClientModule,
   StoreModule.forRoot({
     heroes: heroesReducer
-  }),
+  }, {initialState}),
   HttpClientInMemoryWebApiModule.forRoot(
     InMemoryDataService, { dataEncapsulation: false }
   ),
   EffectsModule.forRoot([HeroEffects])
-]
-
-export const imports = [
-  AppRoutingModule,
-  HttpClientModule,
-  ...baseImports
 ]

@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { AppState } from '../store/state';
 
 import { MessagesComponent } from './messages.component';
-import { Store } from '@ngrx/store';
 
 describe('MessagesComponent', () => {
   let component: MessagesComponent;
@@ -11,12 +12,7 @@ describe('MessagesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ MessagesComponent ],
       providers: [
-        {
-          provide: Store,
-          useValue: {
-            pipe: jasmine.createSpy(),
-          },
-        }
+        ...provideMockStore<AppState>({initialState: {heroes: []}})
       ]
     })
     .compileComponents();

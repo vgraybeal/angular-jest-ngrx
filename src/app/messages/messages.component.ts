@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MessageService } from '../message.service';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { State as HeroState } from '../store/hero.reducer';
 import { Hero } from '../hero';
+import { selectHeroes } from '../store/hero.selectors';
+import { AppState } from '../store/state';
 
 @Component({
   selector: 'app-messages',
@@ -11,11 +12,11 @@ import { Hero } from '../hero';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent {
-  heroes$: Observable<HeroState>
+  heroes$: Observable<Hero[]>;
 
   constructor(public messageService: MessageService,
-    private store: Store<{heroes: Hero[]}>) { 
-      this.heroes$ = store.pipe(select('heroes'));
+    private store: Store<AppState>) {
+      this.heroes$ = store.pipe(select(selectHeroes))
     }
 
 }

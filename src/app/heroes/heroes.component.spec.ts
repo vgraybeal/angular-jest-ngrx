@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -6,6 +7,7 @@ import { AppState } from '../store/state';
 import { mockHeroes } from '../test/mock-data/mock.heroes';
 import { TestContext } from '../test/util/test.context';
 import { setup } from '../test/util/test.setup';
+
 import { HeroesComponent } from './heroes.component';
 import { Store } from '@ngrx/store';
 import { LoadHeroes } from '../store/hero.actions';
@@ -25,6 +27,7 @@ describe('HeroesComponent', () => {
     imports: [],
     routes: [],
     providers: [...provideMockStore<AppState>({initialState: {heroes: mockHeroes}})],
+
   });
 
   beforeEach(async(function(this: Context) {
@@ -40,6 +43,7 @@ describe('HeroesComponent', () => {
         expect(action).toEqual(targetAction);
       });
     });
+
   });
 
   describe('heroes$', () => {

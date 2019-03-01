@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import {cold, hot, getTestScheduler} from 'jasmine-marbles';
+import {cold, hot, getTestScheduler, initTestScheduler} from 'jasmine-marbles';
 import { HeroesComponent } from './heroes.component';
 
 import { State as HeroState } from '../store/hero.reducer';
@@ -35,6 +35,7 @@ describe('HeroesComponent', () => {
   }));
 
   beforeEach(() => {
+    initTestScheduler()
     fixture = TestBed.createComponent(HeroesComponent);
     component = fixture.componentInstance;
   });
@@ -47,7 +48,6 @@ describe('HeroesComponent', () => {
     it('should dispatch an the LoadHeroes action in getHeroes()', () => {
       const action = new LoadHeroes();
       const store = TestBed.get(Store);
-      // const spy = spyOn(store, 'dispatch');
       const spy = store.dispatch;
 
       fixture.detectChanges();
@@ -55,15 +55,6 @@ describe('HeroesComponent', () => {
       expect(spy).toHaveBeenCalledWith(action);
     });
 
-    // it('should get all heroes', () => {
-    //   const store = TestBed.get(Store);
-    //   store.pipe = jest.fn(() => hot('-a', { a: [{name: 'person', id: 1}] }));
-
-    //   fixture.detectChanges();
-
-    //   const expected = cold('-a', { a: [{name: 'person', id: 1}] });
-    //   expect(component.heroes$).toBeObservable(expected);
-    // });
   });
 
   describe('heroes$', () => {

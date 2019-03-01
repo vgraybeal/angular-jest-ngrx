@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { HeroService } from '../hero.service';
-import { MockHeroesService } from '../test/mock-services/mock-heroes-service';
+import { MockHeroService } from '../test/mock-services/hero-service.mock';
 import { TestContext } from '../test/util/test.context';
 import { setup } from '../test/util/test.setup';
 import { DashboardComponent } from './dashboard.component';
@@ -23,7 +23,7 @@ describe('DashboardComponent', () => {
     declarations: [HeroSearchStubComponent],
     imports: [],
     routes: [],
-    providers: [{provide: HeroService, useValue: new MockHeroesService({getHeroesOptions: {isSuccess: true}})}],
+    providers: [{provide: HeroService, useValue: new MockHeroService({getHeroes: {isSuccess: true}})}],
   });
 
   beforeEach(async(function(this: Context) {
@@ -41,7 +41,7 @@ describe('DashboardComponent', () => {
 
   describe('getHeroes fail', () => {
     beforeEach(function(this: Context) {
-      TestBed.overrideProvider(HeroService, {useValue: new MockHeroesService({getHeroesOptions: {isSuccess: false}})});
+      TestBed.overrideProvider(HeroService, {useValue: new MockHeroService({getHeroes: {isSuccess: false}})});
       this.createComponent();
     });
     it('should handle getHeroes failure', function(this: Context) {

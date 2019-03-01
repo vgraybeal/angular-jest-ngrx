@@ -7,13 +7,9 @@ import { HeroSearchComponent } from './hero-search.component';
 import { HeroService } from '../hero.service';
 import { Hero } from '../hero';
 import { of, Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { MockHeroService } from '../test/mock-services/hero-service.mock';
 
-
-class MockHeroService {
-  searchHeroes(id: number): Observable<Hero[]> {
-    return of([{}] as Hero[]);
-  }
-}
 
 describe('HeroSearchComponent', () => {
   let component: HeroSearchComponent;

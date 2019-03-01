@@ -6,17 +6,22 @@ interface Options {
   isSuccess: boolean;
 }
 
-export class MockHeroesService {
-  getHeroesOptions: Options = {isSuccess: true};
+export class MockHeroService {
+  options: {[key: string]: Options} = {
+    getHeroes: {isSuccess: true}
+  };
 
   constructor(options: {[key: string]: Options} = {}) {
-    this.getHeroesOptions = options.getHeroesOptions || this.getHeroesOptions;
+    this.options = options;
   }
   getHeroes(): Observable<Hero[]> {
-    if (this.getHeroesOptions.isSuccess) {
+    if (this.options.getHeroes.isSuccess) {
       return of(mockHeroes);
     } else {
       return throwError(new Error(''));
     }
+  }
+  searchHeroes(id: number): Observable<Hero[]> {
+    return of([mockHeroes[0]]);
   }
 }

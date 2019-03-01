@@ -1,4 +1,4 @@
-import { NgModule, Type } from '@angular/core';
+import { ModuleWithProviders, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Route } from '@angular/router';
 
@@ -6,7 +6,7 @@ export interface CreateOptions<T, H> {
   testedType: Type<T>;
   hostType: Type<H>;
   declarations: any[];
-  imports: NgModule[];
+  imports: any[];
   routes: Route[];
   providers: any[];
 }

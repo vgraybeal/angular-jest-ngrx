@@ -10,7 +10,8 @@ export function heroesReducer(
       return action.payload;
 
     case ActionTypes.DeleteHero:
-      return state.filter(h => h !== action.payload)
+      const id = typeof action.payload === 'number' ? action.payload : action.payload.id;
+      return state.filter(h => h.id !== id);
 
     case ActionTypes.AddHeroSuccess:
       return [

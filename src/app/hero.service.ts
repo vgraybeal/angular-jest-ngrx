@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Hero } from './hero';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AddHeroSuccess, DeleteHero, LoadHeroesSuccess } from './store/hero.actions';
+import { AppState } from './store/state';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,12 +19,13 @@ export class HeroService {
 
   private heroesUrl = 'api/heroes';
 
-  constructor(private messageService: MessageService, private http: HttpClient) { }
+  constructor(private messageService: MessageService, private http: HttpClient, private store: Store<AppState>) { }
 
   getHeroes(): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
         tap(_ => this.log(`fetched ${_.length} heroes`)),
+        tap(heroes => this.store.dispatch(new LoadHeroesSuccess(heroes))),
         catchError(this.handleError('getHeroes', []))
       );
   }
@@ -68,6 +72,7 @@ export class HeroService {
   addHero(hero: Hero): Observable<Hero> {
     return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
       tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
+      tap((newHero: Hero) => this.store.dispatch(new AddHeroSuccess(hero))),
       catchError(this.handleError<Hero>('addHero'))
     );
   }
@@ -79,6 +84,7 @@ export class HeroService {
 
     return this.http.delete<Hero>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted hero id=${id}`)),
+      tap(() => this.store.dispatch(new DeleteHero(id))),
       catchError(this.handleError<Hero>('deleteHero'))
     );
   }

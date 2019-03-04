@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { LoadHeroes, DeleteHero, AddHero } from '../store/hero.actions';
+import { HeroService } from '../hero.service';
 import { selectHeroes } from '../store/hero.selectors';
 import { AppState } from '../store/state';
 
@@ -13,9 +13,9 @@ import { AppState } from '../store/state';
 })
 export class HeroesComponent implements OnInit {
 
-  heroes$: Observable<Hero[]>;
+  heroes$: Observable<Hero[]> = this.store.pipe(select(selectHeroes));
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private heroService: HeroService) {
   }
   
   ngOnInit() {
@@ -23,17 +23,16 @@ export class HeroesComponent implements OnInit {
   }
   
   getHeroes(): void {
-    this.store.dispatch(new LoadHeroes());
-    this.heroes$ = this.store.pipe(select(selectHeroes));
+    this.heroService.getHeroes().subscribe(() => {});
   }
 
   add(name: string): void {
     name = name.trim();
     if (!name) { return }
-    this.store.dispatch(new AddHero({ name } as Hero));
+    this.heroService.addHero(new Hero(name)).subscribe(() => {});
   }
 
   delete(hero: Hero): void {
-    this.store.dispatch(new DeleteHero(hero));
+    this.heroService.deleteHero(hero).subscribe(() => {});
   }
 }

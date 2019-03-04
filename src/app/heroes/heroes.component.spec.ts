@@ -1,16 +1,15 @@
-
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { Hero } from '../hero';
+import { provideMockStore } from '@ngrx/store/testing';
+import { filter } from 'rxjs/operators';
+import { HeroService } from '../hero.service';
 import { AppState } from '../store/state';
 import { mockHeroes } from '../test/mock-data/mock.heroes';
+import { MockHeroService } from '../test/mock-services/hero-service.mock';
 import { TestContext } from '../test/util/test.context';
 import { setup } from '../test/util/test.setup';
 
 import { HeroesComponent } from './heroes.component';
-import { Store } from '@ngrx/store';
-import { LoadHeroes } from '../store/hero.actions';
 
 type Context = TestContext<HeroesComponent, HeroesTestComponent>;
 
@@ -26,34 +25,34 @@ describe('HeroesComponent', () => {
     declarations: [],
     imports: [],
     routes: [],
-    providers: [...provideMockStore<AppState>({initialState: {heroes: mockHeroes}})],
-
+    providers: [
+      ...provideMockStore<AppState>({initialState: {heroes: []}}),
+      {provide: HeroService, useValue: new MockHeroService({getHeroes: {isSuccess: true}})}
+    ],
   });
-
-  beforeEach(async(function(this: Context) {
-    this.createModule();
-    this.createComponent();
-  }));
 
   describe('getHeroes()', () => {
-    it('should dispatch an the LoadHeroes action in getHeroes()', function(this: Context) {
-      const targetAction = new LoadHeroes();
-      const store = TestBed.get(Store);
-      store.scannedActions$.subscribe((action) => {
-        expect(action).toEqual(targetAction);
-      });
+    let heroService: HeroService;
+
+    beforeEach(async(function(this: Context) {
+      this.createModule();
+      heroService = TestBed.get(HeroService);
+      spyOn(heroService, 'getHeroes').and.callThrough();
+      this.createComponent();
+    }));
+
+    it('should call getHeroes()', function(this: Context) {
+      expect(heroService.getHeroes).toHaveBeenCalledTimes(1);
     });
 
-  });
-
-  describe('heroes$', () => {
     it('should be an observable of an array of Hero objects', function(this: Context) {
-      this.testedDirective.heroes$.subscribe(componentHeroes => {
+      this.testedDirective.heroes$.pipe(
+        filter((heroes) => heroes.length > 0)
+      ).subscribe(componentHeroes => {
         expect(componentHeroes).toEqual(mockHeroes);
       });
     });
 
   });
-
 
 });

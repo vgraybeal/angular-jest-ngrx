@@ -20,5 +20,7 @@ export interface TestContext<T, H> {
   injector: TestBed;
 
   createModule(): void;
+  // before calling createComponent(), ensure that you have provided all dependencies and/or set up any spies.
+  // once this is called, all dependencies will have been injected and lifecycle hooks will have been called.
   createComponent(): void;
 }

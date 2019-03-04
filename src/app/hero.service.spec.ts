@@ -1,8 +1,10 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { HeroService } from './hero.service';
 import { Hero } from './hero';
+import { AppState } from './store/state';
 
 describe('HeroService', () => {
   let injector: TestBed;
@@ -14,6 +16,7 @@ describe('HeroService', () => {
       imports: [
         HttpClientTestingModule
       ],
+      providers: [...provideMockStore<AppState>({initialState: {heroes: []}}),]
     });
     injector = getTestBed();
     service = injector.get(HeroService);

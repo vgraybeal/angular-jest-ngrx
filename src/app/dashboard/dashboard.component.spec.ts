@@ -1,17 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { HeroService } from '../hero.service';
 import { MockHeroService } from '../test/mock-services/hero-service.mock';
-import { TestContext } from '../test/util/test.context';
+import { TestContextWithoutHost } from '../test/util/test.context';
 import { setup } from '../test/util/test.setup';
 import { DashboardComponent } from './dashboard.component';
 import { Component } from '@angular/core';
 
-type Context = TestContext<DashboardComponent, DashBoardTestComponent>;
-
-@Component({
-  template: `<app-dashboard></app-dashboard>`
-})
-class DashBoardTestComponent {}
+type Context = TestContextWithoutHost<DashboardComponent>;
 
 @Component({selector: 'app-hero-search', template: ''})
 class HeroSearchStubComponent {}
@@ -19,7 +14,6 @@ class HeroSearchStubComponent {}
 describe('DashboardComponent', () => {
   setup({
     testedType: DashboardComponent,
-    hostType: DashBoardTestComponent,
     declarations: [HeroSearchStubComponent],
     imports: [],
     routes: [],
